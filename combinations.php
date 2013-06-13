@@ -1,6 +1,23 @@
 <?php
 
-print_r(combinations(range(1, 3)));
+if (!isset($argv[1])) {
+	error(1, 'Argument not set');
+}
+
+if (!is_numeric($argv[1])) {
+	error(2, 'Argument must be a number');
+}
+
+if ($argv[1] < 1) {
+	error(3, 'Argument must be greater than or equal to 1');
+}
+
+
+$min = 1;
+$max = $argv[1];
+foreach (combinations(range($min, $max)) as $combination) {
+	println($combination);
+}
 
 function combinations(array $buttons) {
 	$return = array();
@@ -35,5 +52,16 @@ function combinations(array $buttons) {
 
 	}
 
+	// remove duplicates
 	return array_unique($return);
+}
+
+function error($code, $message = '') {
+	println('Error [' . $code . ']: ' . $message);
+	println('Usage: php ' . $_SERVER['SCRIPT_NAME'] . ' {N}');
+	exit($code);
+}
+
+function println($string) {
+	echo $string . "\n";
 }
