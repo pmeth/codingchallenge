@@ -5,8 +5,9 @@ print_r(combinations(range(1, 3)));
 function combinations(array $buttons) {
 	$return = array();
 	foreach ($buttons as $key => $button) {
-		unset($buttons[$key]);
-		$combinations = combinations($buttons);
+		$newbuttons = $buttons;
+		unset($newbuttons[$key]);
+		$combinations = combinations($newbuttons);
 		$return[] = $button;
 		foreach($combinations as $combination) {
 			// do combinations that include button
