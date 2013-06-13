@@ -16,6 +16,23 @@ function combinations(array $buttons) {
 			$return[] = $combination;
 
 		}
+
+		$newbuttons2 = $newbuttons;
+		foreach ($newbuttons2 as $key2 => $button2) {
+			if ($button2 < $button) {
+				continue;
+			}
+			unset($newbuttons2[$key2]);
+			$combinations = combinations($newbuttons2);
+			$return[] = $button . '-' . $button2;
+			foreach($combinations as $combination) {
+				// do combinations that include multi button
+				$return[] = $button . '-' . $button2 . ' ' . $combination;
+
+			}
+		}
+
+
 	}
 
 	return array_unique($return);
